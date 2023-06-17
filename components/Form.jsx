@@ -132,6 +132,9 @@ export const Form = () => {
 		setHoldingOfferCtc('');
 		setReason('');
 		setRemark('');
+
+		// alert message
+		alert('Form submitted successfuly!');
 	};
 
 	return (
