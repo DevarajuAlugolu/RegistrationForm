@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { FormSelect } from './FormSelect';
-import { FormInput } from './FormInput';
-import { FormInputDefaultDate } from './FormInputDefaultDate';
+import './form.css';
+import { FormSelect } from '../components/FormSelect';
+import { FormInput } from '../components/FormInput';
+import { FormInputDefaultDate } from '../components/FormInputDefaultDate';
+import { Success, Error } from '../components/Message';
+import { removeMessage } from '../src/helper';
+
+// import { jobApplicants } from '../src/data';
 
 export const Form = () => {
 	const defaultValue = new Date().toISOString().split('T')[0];
 	const [recruiterName, setRecruiterName] = useState('');
+	const [clientName, setClientName] = useState('');
 	const [candidateName, setCandidateName] = useState('');
 	const [currentCompany, setCurrentCompany] = useState('');
 	const [currentPosition, setCurrentPosition] = useState('');
@@ -23,12 +29,24 @@ export const Form = () => {
 	const [holdingOfferCtc, setHoldingOfferCtc] = useState('');
 	const [reason, setReason] = useState('');
 	const [remark, setRemark] = useState('');
+	const [successMessage, setSuccessMessage] = useState('');
+	// const [errorMessage, setErrorMessage] = useState('');
+	const [welcomeMessage, setWelcomeMessage] = useState(true);
 
+	const dbApplicants = JSON.parse(localStorage.getItem('jobApplicants'));
+
+	// Removing Welcome message after 5 seconds
+	removeMessage(setWelcomeMessage, false);
+
+	// handling input changes
 	const handleInputChange = (event) => {
 		const { id, value } = event.target;
 
 		if (id === 'recruiter-name') {
 			setRecruiterName(value);
+		}
+		if (id === 'client-name') {
+			setClientName(value);
 		}
 		if (id === 'candidate-name') {
 			setCandidateName(value);
@@ -83,6 +101,7 @@ export const Form = () => {
 		}
 	};
 
+	// Handling Form submission
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
@@ -91,6 +110,7 @@ export const Form = () => {
 			id: Math.random().toString(16).slice(2) + new Date().getTime(),
 			date: defaultValue,
 			recruiterName,
+			clientName,
 			candidateName,
 			currentCompany,
 			currentPosition,
@@ -111,10 +131,19 @@ export const Form = () => {
 		};
 
 		// Storing data in local storage
-		localStorage.setItem('formData', JSON.stringify(data));
+		dbApplicants.push(data);
+		localStorage.setItem('jobApplicants', JSON.stringify(dbApplicants));
 
-		// clearing all input fields
+		// success Message
+		setSuccessMessage('form Submitted');
+		console.log('form submitted');
+
+		// removing success message
+		removeMessage(setSuccessMessage, '');
+
+		//Reset the form after submission
 		setRecruiterName('');
+		setClientName('');
 		setCandidateName('');
 		setCurrentCompany('');
 		setCurrentPosition('');
@@ -132,14 +161,19 @@ export const Form = () => {
 		setHoldingOfferCtc('');
 		setReason('');
 		setRemark('');
-
-		// alert message
-		alert('Form submitted successfuly!');
 	};
 
 	return (
 		<div className="container">
-			<header>Registration</header>
+			{/* displaying welcome message */}
+			{welcomeMessage && (
+				<Success message="No need to login/signup to apply for a job" />
+			)}
+			{/* displaying success Message */}
+			{successMessage && (
+				<Success message="Your application is successfully submitted" />
+			)}
+			<header>Job application</header>
 			<form className="user-form" onSubmit={(e) => handleSubmit(e)}>
 				<div className="form first">
 					<div className="fields">
@@ -150,6 +184,14 @@ export const Form = () => {
 							type="text"
 							label="Name of the Recruiter"
 							value={recruiterName}
+							handleInputChange={handleInputChange}
+						/>
+
+						<FormInput
+							id="client-name"
+							type="text"
+							label="Name of the Client"
+							value={clientName}
 							handleInputChange={handleInputChange}
 						/>
 
@@ -324,3 +366,5 @@ export const Form = () => {
 		</div>
 	);
 };
+
+// export default Form;

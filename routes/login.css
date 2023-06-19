@@ -1,0 +1,51 @@
+body {
+	font-family: Arial, sans-serif;
+	align-items: center;
+	justify-content: center;
+	/* background: #4070f4;*/
+	background: #40a6f4;
+}
+
+.form-login {
+	max-width: 400px;
+	margin: 100px auto;
+	padding: 20px;
+	background-color: #ffffff;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.lead {
+	text-align: center;
+	color: #333;
+	font-family: serif;
+	font-size: 30px;
+}
+
+input[type='text'],
+input[type='password'],
+select {
+	width: 100%;
+	border-radius: 4px;
+	padding: 12px;
+	text-align: center;
+	left: 50%;
+	margin-top: 10px;
+	margin-right: 20px;
+	display: inline-block;
+}
+
+input[type='submit'] {
+	width: 100%;
+	padding: 10px;
+	margin: 15px 0px;
+	background-color: #4070f4;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+input[type='submit']:hover {
+	background-color: #265df2;
+}
