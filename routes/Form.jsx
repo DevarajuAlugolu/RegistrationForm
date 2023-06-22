@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './form.css';
 import { FormSelect } from '../components/FormSelect';
 import { FormInput } from '../components/FormInput';
@@ -6,7 +6,12 @@ import { FormInputDefaultDate } from '../components/FormInputDefaultDate';
 import { Success, Error } from '../components/Message';
 import { removeMessage } from '../src/helper';
 
-// import { jobApplicants } from '../src/data';
+import {
+	recruiterCredentials,
+	clientCredentials,
+	managerCredientals,
+	jobApplicants,
+} from '../src/data';
 
 export const Form = () => {
 	const defaultValue = new Date().toISOString().split('T')[0];
@@ -34,6 +39,22 @@ export const Form = () => {
 	const [welcomeMessage, setWelcomeMessage] = useState(true);
 
 	const dbApplicants = JSON.parse(localStorage.getItem('jobApplicants'));
+
+	useEffect(() => {
+		localStorage.setItem('jobApplicants', JSON.stringify(jobApplicants));
+		localStorage.setItem(
+			'clientCredentials',
+			JSON.stringify(clientCredentials)
+		);
+		localStorage.setItem(
+			'recruiterCredentials',
+			JSON.stringify(recruiterCredentials)
+		);
+		localStorage.setItem(
+			'managerCredientals',
+			JSON.stringify(managerCredientals)
+		);
+	}, []);
 
 	// Removing Welcome message after 5 seconds
 	removeMessage(setWelcomeMessage, false);

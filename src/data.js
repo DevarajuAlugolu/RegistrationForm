@@ -300,10 +300,10 @@ export const managerCredientals = [
 	},
 ];
 
-localStorage.setItem('jobApplicants', JSON.stringify(jobApplicants));
-localStorage.setItem('clientCredentials', JSON.stringify(clientCredentials));
-localStorage.setItem(
-	'recruiterCredentials',
-	JSON.stringify(recruiterCredentials)
-);
-localStorage.setItem('managerCredientals', JSON.stringify(managerCredientals));
+// localStorage.setItem('jobApplicants', JSON.stringify(jobApplicants));
+// localStorage.setItem('clientCredentials', JSON.stringify(clientCredentials));
+// localStorage.setItem(
+// 	'recruiterCredentials',
+// 	JSON.stringify(recruiterCredentials)
+// );
+// localStorage.setItem('managerCredientals', JSON.stringify(managerCredientals));
